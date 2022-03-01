@@ -45,21 +45,25 @@ const showMore = phoneSlug => {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneSlug}`
     fetch(url)
         .then(res => res.json())
-        .then(data => displayPhoneDetails(data.data, data.data.image, data.data.slug, data.data.releaseDate))
+        .then(data => displayPhoneDetails(data.data, data.data.image, data.data.slug, data.data.releaseDate, data.data.mainFeatures.storage, data.data.mainFeatures.displaySize))
 
 
 }
-const displayPhoneDetails = (data, image, slug, releaseDate) => {
+const displayPhoneDetails = (data, image, slug, releaseDate, mainFeatureStorage, mainFeatureDisplaySize) => {
     console.log(data)
     if (releaseDate == '') {
         const more = document.getElementById('details')
         more.textContent = '';
         more.innerHTML = `
-            <div class="card mx-auto" style="width: 18rem;">
+            <div class="card rounded mx-auto" style="width: 18rem;">
             <img src="${image}" class="card-img-top" alt="...">
-            <div class="card-body">
+            <div class="card-body bg-primary">
                 <h5 class="card-title">${slug}</h5>
-                <p class="card-text">Release Date:<span class="text-danger">Sorry relese date not found</span></p>       
+                <p class="card-text">Release Date:<span class="text-danger">Sorry relese date not found</span></p> 
+                <p class="card-text">Storage:${mainFeatureStorage}</p>
+                <p>
+                Display size:${mainFeatureDisplaySize}
+                </p>        
             </div>
         </div>`
     }
@@ -67,11 +71,16 @@ const displayPhoneDetails = (data, image, slug, releaseDate) => {
         const more = document.getElementById('details')
         more.textContent = '';
         more.innerHTML = `
-        <div class="card mx-auto" style="width: 18rem;">
+        <div class="card rounded mx-auto" style="width: 18rem;">
         <img src="${image}" class="card-img-top" alt="...">
-        <div class="card-body">
+        <div class="card-body bg-Dark
+        ">
             <h5 class="card-title">${slug}</h5>
-            <p class="card-text">Release Date:${releaseDate}</p>       
+            <p class="card-text">Release Date:${releaseDate}</p>  
+            <p class="card-text">Storage:${mainFeatureStorage}</p>
+            <p>
+            Display size:${mainFeatureDisplaySize}
+            </p>     
         </div>
     </div>`
     }
