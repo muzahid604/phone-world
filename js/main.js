@@ -24,16 +24,16 @@ const ShowPhone = phones => {
     }
     else {
         phones.forEach(phone => {
-            console.log(phone)
+            // console.log(phone)
             const div = document.createElement('div')
             div.classList.add('col')
             div.innerHTML = `
-        <div class="card h-100">
+        <div class="card h-100 p-3">
                 <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">Brand:${phone.brand}</p>
-                <button onclick="showMore()" type="button" class="btn btn-primary">Show more</button>
+                <button onclick="showMore('${phone.slug}')" type="button" class="btn btn-primary">Show more</button>
                 
             </div>
         </div>`
@@ -41,6 +41,38 @@ const ShowPhone = phones => {
         });
     }
 }
-const showMore = () => {
+const showMore = phoneSlug => {
+    const url = `https://openapi.programming-hero.com/api/phone/${phoneSlug}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayPhoneDetails(data.data, data.data.image, data.data.slug, data.data.releaseDate))
 
+
+}
+const displayPhoneDetails = (data, image, slug, releaseDate) => {
+    console.log(data)
+    if (releaseDate == '') {
+        const more = document.getElementById('details')
+        more.textContent = '';
+        more.innerHTML = `
+            <div class="card mx-auto" style="width: 18rem;">
+            <img src="${image}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">${slug}</h5>
+                <p class="card-text">Release Date:<span class="text-danger">Sorry relese date not found</span></p>       
+            </div>
+        </div>`
+    }
+    else {
+        const more = document.getElementById('details')
+        more.textContent = '';
+        more.innerHTML = `
+        <div class="card mx-auto" style="width: 18rem;">
+        <img src="${image}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">${slug}</h5>
+            <p class="card-text">Release Date:${releaseDate}</p>       
+        </div>
+    </div>`
+    }
 }
