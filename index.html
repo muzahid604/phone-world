@@ -6,10 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Favourite Phone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
 
+    <h1 class="text-center m-2">Phones</h1>
+    <section class="search-section">
+        <div class="input-group mb-3 w-50 mx-auto my-5">
+            <input id="search-input" type="text" class="form-control" placeholder="Search Phone"
+                aria-label="Search Phone" aria-describedby="button-addon2">
+            <button onclick="searchPhoneValue()" class="btn btn-outline-primary" type="button"
+                id="button-addon2">Search</button>
+        </div>
+    </section>
+    <section class="details-section">
+        <div id="details">
+
+        </div>
+    </section>
+
+    <section class="view-phone">
+        <div id="search-phone" class="row row-cols-1 row-cols-md-3 g-4 m-2">
+
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
