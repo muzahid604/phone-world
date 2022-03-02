@@ -15,6 +15,7 @@ const searchPhoneValue = () => {
 
 
 const ShowPhone = phones => {
+    const maximamPhone = (phones.slice(0, 20));
     const mainDiv = document.getElementById('search-phone');
     mainDiv.textContent = '';
     if (phones.length == 0) {
@@ -23,7 +24,7 @@ const ShowPhone = phones => {
         document.body.appendChild(erorrMassage)
     }
     else {
-        phones.forEach(phone => {
+        maximamPhone.forEach(phone => {
             // console.log(phone)
             const div = document.createElement('div')
             div.classList.add('col')
@@ -45,24 +46,29 @@ const showMore = phoneSlug => {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneSlug}`
     fetch(url)
         .then(res => res.json())
-        .then(data => displayPhoneDetails(data.data, data.data.image, data.data.slug, data.data.releaseDate, data.data.mainFeatures.storage, data.data.mainFeatures.displaySize))
+        .then(data => displayPhoneDetails(data.data))
 
 
 }
-const displayPhoneDetails = (data, image, slug, releaseDate, mainFeatureStorage, mainFeatureDisplaySize) => {
+const displayPhoneDetails = data => {
     console.log(data)
+    const phoneImage = data.image;
+    const slug = data.slug;
+    const releaseDate = data.releaseDate;
+    const storage = data.mainFeatures.storage;
+    const displaySize = data.mainFeatures.displaySize;
     if (releaseDate == '') {
         const more = document.getElementById('details')
         more.textContent = '';
         more.innerHTML = `
             <div class="card rounded mx-auto" style="width: 18rem;">
-            <img src="${image}" class="card-img-top" alt="...">
-            <div class="card-body bg-primary">
+            <img src="${phoneImage}" class="card-img-top" alt="...">
+            <div class="card-body bg-warning">
                 <h5 class="card-title">${slug}</h5>
                 <p class="card-text">Release Date:<span class="text-danger">Sorry relese date not found</span></p> 
-                <p class="card-text">Storage:${mainFeatureStorage}</p>
+                <p class="card-text">Storage:${storage}</p>
                 <p>
-                Display size:${mainFeatureDisplaySize}
+                Display size:${displaySize}
                 </p>        
             </div>
         </div>`
@@ -72,14 +78,14 @@ const displayPhoneDetails = (data, image, slug, releaseDate, mainFeatureStorage,
         more.textContent = '';
         more.innerHTML = `
         <div class="card rounded mx-auto" style="width: 18rem;">
-        <img src="${image}" class="card-img-top" alt="...">
+        <img src="${phoneImage}" class="card-img-top" alt="...">
         <div class="card-body bg-Dark
         ">
             <h5 class="card-title">${slug}</h5>
             <p class="card-text">Release Date:${releaseDate}</p>  
-            <p class="card-text">Storage:${mainFeatureStorage}</p>
+            <p class="card-text">Storage:${storage}</p>
             <p>
-            Display size:${mainFeatureDisplaySize}
+            Display size:${displaySize}
             </p>     
         </div>
     </div>`
