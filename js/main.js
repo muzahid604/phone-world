@@ -11,6 +11,9 @@ const searchPhoneValue = () => {
             .then(res => res.json())
             .then(data => ShowPhone(data.data))
     }
+    const clearDetails = document.getElementById('details');
+    clearDetails.innerHTML = '';
+
 }
 
 
@@ -19,10 +22,8 @@ const ShowPhone = phones => {
     const mainDiv = document.getElementById('search-phone');
     mainDiv.textContent = '';
     if (phones.length == 0) {
-
         const erorrMassage = document.createElement('div')
         erorrMassage.innerHTML = `<h2 class="text-center bg-danger p-4 m-5">Sorroy no phone found</h2>`
-
         document.body.appendChild(erorrMassage)
     }
     else {
@@ -44,31 +45,85 @@ const ShowPhone = phones => {
     }
 }
 const showMore = phoneSlug => {
+    window.scrollTo(0, 0);
     const url = `https://openapi.programming-hero.com/api/phone/${phoneSlug}`
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhoneDetails(data.data))
 }
 const displayPhoneDetails = data => {
-    console.log(data)
     const phoneImage = data.image;
     const slug = data.slug;
     const releaseDate = data.releaseDate;
-    const bluetooth = data.others.Bluetooth;
-    const GPS = data.others.GPS;
-    const NFC = data.others.NFC;
-    const Radio = data.others.Radio;
-    const USB = data.others.USB;
-    const WLAN = data.others.WLAN;
     const chipSet = data.mainFeatures.chipSet;
     const memory = data.mainFeatures.memory;
     const sensors = data.mainFeatures.sensors;
     const storage = data.mainFeatures.storage
     const displaySize = data.mainFeatures.displaySize;
-    if (releaseDate == '') {
-        const more = document.getElementById('details')
-        more.textContent = '';
-        more.innerHTML = `
+    if (data.others == null) {
+        if (releaseDate == '') {
+            const more = document.getElementById('details')
+            more.textContent = '';
+            more.innerHTML = `
+                <div class="card rounded mx-auto" style="width: 18rem;">
+                <img src="${phoneImage}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${slug}</h5>
+                    <p class="card-text">Release Date: <span class="text-danger">Sorry relese date not found</span></p> 
+                    <p class="card-text">
+                    Chipset: ${chipSet}
+                    </p>
+                    <p>
+                    Storage: ${storage}</p>
+                    <p>
+                    Display size: ${displaySize}
+                    </p>
+                    <p>
+                    Memory: ${memory}
+                    <p>
+                    Sensors: ${sensors}
+                    </p>
+                </div>
+            </div>`
+        }
+        else {
+            const more = document.getElementById('details')
+            more.textContent = '';
+            more.innerHTML = `
+            <div class="card rounded mx-auto" style="width: 18rem;">
+            <img src="${phoneImage}" class="card-img-top" alt="...">
+            <div class="card-body bg-Dark
+            ">
+                <h5 class="card-title">${slug}</h5>
+                <p class="card-text">Release Date:${releaseDate}</p>  
+                <p class="card-text">
+                    Chipset: ${chipSet}
+                    </p>
+                    <p>
+                    Storage: ${storage}</p>
+                    <p>
+                    Display size: ${displaySize}
+                    </p>
+                    <p>
+                    Memory: ${memory}
+                    <p>
+                    Sensors: ${sensors}
+                    </p>                   
+            </div>
+        </div>`
+        }
+    }
+    else {
+        const bluetooth = data.others.Bluetooth;
+        const GPS = data.others.GPS;
+        const NFC = data.others.NFC;
+        const Radio = data.others.Radio;
+        const USB = data.others.USB;
+        const WLAN = data.others.WLAN;
+        if (releaseDate == '') {
+            const more = document.getElementById('details')
+            more.textContent = '';
+            more.innerHTML = `
             <div class="card rounded mx-auto" style="width: 18rem;">
             <img src="${phoneImage}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -106,11 +161,11 @@ const displayPhoneDetails = data => {
                 </p>
             </div>
         </div>`
-    }
-    else {
-        const more = document.getElementById('details')
-        more.textContent = '';
-        more.innerHTML = `
+        }
+        else {
+            const more = document.getElementById('details')
+            more.textContent = '';
+            more.innerHTML = `
         <div class="card rounded mx-auto" style="width: 18rem;">
         <img src="${phoneImage}" class="card-img-top" alt="...">
         <div class="card-body bg-Dark
@@ -148,5 +203,6 @@ const displayPhoneDetails = data => {
                 </p>          
         </div>
     </div>`
+        }
     }
 }
