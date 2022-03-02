@@ -1,3 +1,4 @@
+// search pohone url 
 const searchPhoneValue = () => {
     const searchPhone = document.getElementById('search-input');
     const phoneName = searchPhone.value;
@@ -16,7 +17,7 @@ const searchPhoneValue = () => {
 
 }
 
-
+// show phone in ui 
 const ShowPhone = phones => {
     const maximamPhone = (phones.slice(0, 20));
     const mainDiv = document.getElementById('search-phone');
@@ -35,7 +36,7 @@ const ShowPhone = phones => {
                 <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
-                <p class="card-text">Brand:${phone.brand}</p>
+                <p class="card-text">Brand: <strong>${phone.brand}</strong></p>
                 <button onclick="showMore('${phone.slug}')" type="button" class="btn btn-primary">Show more</button>
                 
             </div>
@@ -44,6 +45,8 @@ const ShowPhone = phones => {
         });
     }
 }
+
+// show more button 
 const showMore = phoneSlug => {
     window.scrollTo(0, 0);
     const url = `https://openapi.programming-hero.com/api/phone/${phoneSlug}`

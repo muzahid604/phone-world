@@ -1,0 +1,17 @@
+/* body style  */
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: rgb(215, 202, 228);
+}
+
+/* heding style  */
+h1 {
+    color: rgb(0, 110, 255);
+}
+
+/* card style  */
+.card {
+    background-color: rgb(241, 241, 203);
+    box-shadow: 10px 10px 5px rgb(140, 139, 141);
+    border-radius: 20px;
+}
