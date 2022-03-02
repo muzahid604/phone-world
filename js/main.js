@@ -3,7 +3,7 @@ const searchPhoneValue = () => {
     const phoneName = searchPhone.value;
     searchPhone.value = ''
     if (phoneName == '') {
-        console.log('khali')
+        searchPhone.style.background = 'red'
     }
     else {
         const url = ` https://openapi.programming-hero.com/api/phones?search=${phoneName}`
@@ -19,13 +19,14 @@ const ShowPhone = phones => {
     const mainDiv = document.getElementById('search-phone');
     mainDiv.textContent = '';
     if (phones.length == 0) {
+
         const erorrMassage = document.createElement('div')
-        erorrMassage.innerHTML = `<h2 class=" text-center">Sorroy no phone found</h2>`
+        erorrMassage.innerHTML = `<h2 class="text-center bg-danger p-4 m-5">Sorroy no phone found</h2>`
+
         document.body.appendChild(erorrMassage)
     }
     else {
         maximamPhone.forEach(phone => {
-            // console.log(phone)
             const div = document.createElement('div')
             div.classList.add('col')
             div.innerHTML = `
@@ -47,15 +48,22 @@ const showMore = phoneSlug => {
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhoneDetails(data.data))
-
-
 }
 const displayPhoneDetails = data => {
     console.log(data)
     const phoneImage = data.image;
     const slug = data.slug;
     const releaseDate = data.releaseDate;
-    const storage = data.mainFeatures.storage;
+    const bluetooth = data.others.Bluetooth;
+    const GPS = data.others.GPS;
+    const NFC = data.others.NFC;
+    const Radio = data.others.Radio;
+    const USB = data.others.USB;
+    const WLAN = data.others.WLAN;
+    const chipSet = data.mainFeatures.chipSet;
+    const memory = data.mainFeatures.memory;
+    const sensors = data.mainFeatures.sensors;
+    const storage = data.mainFeatures.storage
     const displaySize = data.mainFeatures.displaySize;
     if (releaseDate == '') {
         const more = document.getElementById('details')
@@ -63,13 +71,39 @@ const displayPhoneDetails = data => {
         more.innerHTML = `
             <div class="card rounded mx-auto" style="width: 18rem;">
             <img src="${phoneImage}" class="card-img-top" alt="...">
-            <div class="card-body bg-warning">
+            <div class="card-body">
                 <h5 class="card-title">${slug}</h5>
-                <p class="card-text">Release Date:<span class="text-danger">Sorry relese date not found</span></p> 
-                <p class="card-text">Storage:${storage}</p>
+                <p class="card-text">Release Date: <span class="text-danger">Sorry relese date not found</span></p> 
+                <p class="card-text">
+                Chipset: ${chipSet}
+                </p>
                 <p>
-                Display size:${displaySize}
-                </p>        
+                Storage: ${storage}</p>
+                <p>
+                Display size: ${displaySize}
+                </p>
+                <p>
+                Memory: ${memory}
+                <p>
+                Sensors: ${sensors}
+                </p> 
+                
+                <p class="card-text">
+                Bluetooth: ${bluetooth}
+                </p>
+                <p>
+                GPS: ${GPS}</p>
+                <p>
+                NFC: ${NFC}
+                </p>
+                <p>
+                Radio: ${Radio}
+                <p>
+                USB: ${USB}
+                </p>
+                <p>
+                WLAN: ${WLAN}
+                </p>
             </div>
         </div>`
     }
@@ -83,10 +117,35 @@ const displayPhoneDetails = data => {
         ">
             <h5 class="card-title">${slug}</h5>
             <p class="card-text">Release Date:${releaseDate}</p>  
-            <p class="card-text">Storage:${storage}</p>
-            <p>
-            Display size:${displaySize}
-            </p>     
+            <p class="card-text">
+                Chipset: ${chipSet}
+                </p>
+                <p>
+                Storage: ${storage}</p>
+                <p>
+                Display size: ${displaySize}
+                </p>
+                <p>
+                Memory: ${memory}
+                <p>
+                Sensors: ${sensors}
+                </p>          
+                <p class="card-text">
+                Bluetooth: ${bluetooth}
+                </p>
+                <p>
+                GPS: ${GPS}</p>
+                <p>
+                NFC: ${NFC}
+                </p>
+                <p>
+                Radio: ${Radio}
+                <p>
+                USB: ${USB}
+                </p>
+                <p>
+                WLAN: ${WLAN}
+                </p>          
         </div>
     </div>`
     }
